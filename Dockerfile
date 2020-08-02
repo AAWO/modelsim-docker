@@ -1,11 +1,11 @@
 FROM centos:7
 
-LABEL mantainer="Adrian Ruiz aerf2007@gmail.com"
+LABEL mantainer="Andrzej Wojciechowski (AAWO)"
 
 ARG version_modelsim="16.0"
 ARG build_modelsim="211"
 ARG bin_modelsim="ModelSimSetup-${version_modelsim}.0.${build_modelsim}-linux.run"
-ARG url_donwload_modelsim="http://download.altera.com/akdlm/software/acdsinst/${version_modelsim}/${build_modelsim}/ib_installers/${bin_modelsim}"
+ARG url_download_modelsim="http://download.altera.com/akdlm/software/acdsinst/${version_modelsim}/${build_modelsim}/ib_installers/${bin_modelsim}"
 ARG path_install_modelsim="/tmp"
 
 ENV PATH="/vsim-ase/bin:${PATH}"
@@ -48,13 +48,14 @@ RUN yum update -y && \
     bzip2-libs \
     bzip2-devel.i686 \
     nano \
+    make \
     xauth && \
     yum clean all && \
     rm -rf /var/cache/yum && \
     ## Download And Install ModelSim
-    wget --spider -nv --timeout 10 -t 1 ${url_donwload_modelsim} && \
+    wget --spider -nv --timeout 10 -t 1 ${url_download_modelsim} && \
     echo "Downloading ModelSim..." && \
-    wget -c -nv -P ${path_install_modelsim}  ${url_donwload_modelsim} && \
+    wget -c -nv -P ${path_install_modelsim}  ${url_download_modelsim} && \
     chmod a+x ${path_install_modelsim}/${bin_modelsim} && \
     echo "Installing ModelSim..." && \
     ## Version 16 Build 211 Setup
